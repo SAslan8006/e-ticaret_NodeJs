@@ -6,7 +6,7 @@ const AuthSchema = new mongoose.Schema({
     require: true,
     trim: true,
   },
-  ename: {
+  email: {
     type: String,
     require: true,
     unique: true,

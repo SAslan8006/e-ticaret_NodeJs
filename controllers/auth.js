@@ -17,7 +17,7 @@ const register = async (req, res) => {
 
     const newUser = await Auth.create({ username, email, password: passwordHash });
 
-    const userToken = jwt.sign({ id: newUser.id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRESIN });
+    const userToken = jwt.sign({ id: newUser.id }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
     res.status(201).json({
       status: 'Ok',
@@ -41,7 +41,7 @@ const login =async (req, res) => {
     if (!comparePassword) {
         return res.status(500).json({ message: 'Parolanız yanlıştır..!' });
     }
-    const token= jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRESIN });
+    const token= jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn:"1h" });
     res.status(200).json({
         status: 'Ok',
         user,
