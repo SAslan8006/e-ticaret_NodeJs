@@ -33,7 +33,7 @@ const login =async (req, res) => {
     
   try {
     const { email, password } = req.body;
-    const user = await user.findOne({ email });
+    const user = await Auth.findOne({ email });
     if (!user) { 
         return res.status(500).json({ message: 'Böyle bir kullanıcı bulunamadı..!' });
     }
