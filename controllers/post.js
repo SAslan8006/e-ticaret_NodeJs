@@ -53,13 +53,25 @@ const deletePost = async (req, res) => {
     const { id } = req.params;
     await PostSchema.findByIdAndRemove(id);
     res.status(201).json({
-      message:"Silme işleminiz başarılıdır...."
+      message: 'Silme işleminiz başarılıdır....',
     });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
 };
 
+const searchPost = async (req, res) => {
+  try {
+    const { search, tag } = req.query;
+    const title = new RegExp(search, 'i');
 
+    const posts = await PostSchema.find({ $or: [{ title }], tag: { $in: tag.splite(',') } });
+    res.status(200).json({
+      posts,
+    });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
 
-module.exports = { createPost, getPost, getDetail, getUpdate, deletePost };
+module.exports = { createPost, getPost, getDetail, getUpdate, deletePost, searchPost };
